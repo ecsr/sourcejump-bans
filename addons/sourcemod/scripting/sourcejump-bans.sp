@@ -9,7 +9,7 @@
 #pragma semicolon 1
 
 #define URL "https://sourcejump.net"
-#define ENDPOINT "api/players/banned"
+#define ENDPOINT "api/v1/players/banned"
 
 enum
 {
