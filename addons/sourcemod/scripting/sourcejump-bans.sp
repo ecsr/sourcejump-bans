@@ -1,15 +1,12 @@
 #include <sourcemod>
 
 #include <ripext>
-
-#undef REQUIRE_PLUGIN
 #include <shavit>
 
 #pragma newdecls required
 #pragma semicolon 1
 
-#define URL "https://sourcejump.net"
-#define ENDPOINT "api/players/banned"
+#define URL "https://sourcejump.net/api/players/banned"
 
 enum
 {
@@ -22,8 +19,6 @@ ConVar gCV_APIKey;
 ConVar gCV_Actions;
 
 ArrayList gA_SteamIds;
-HTTPClient gH_HTTPClient;
-
 bool gB_TimerBanned[MAXPLAYERS + 1];
 
 public Plugin myinfo =
@@ -42,7 +37,6 @@ public void OnPluginStart()
 	AutoExecConfig();
 
 	gA_SteamIds = new ArrayList(ByteCountToCells(32));
-	gH_HTTPClient = new HTTPClient(URL);
 }
 
 public void OnConfigsExecuted()
@@ -56,8 +50,9 @@ public void OnConfigsExecuted()
 		return;
 	}
 
-	gH_HTTPClient.SetHeader("api-key", apiKey);
-	gH_HTTPClient.Get(ENDPOINT, OnBannedPlayersReceived);
+	HTTPRequest request = new HTTPRequest(URL);
+	request.SetHeader("api-key", apiKey);
+	request.Get(OnBannedPlayersReceived);
 }
 
 public void OnClientPostAdminCheck(int client)
@@ -144,8 +139,8 @@ public Action Shavit_OnFinishPre(int client, timer_snapshot_t snapshot)
 /**
  * Prints a message to all admins in the chat area.
  *
- * @param format		Formatting rules.
- * @param any			Variable number of format parameters.
+ * @param format        Formatting rules.
+ * @param any           Variable number of format parameters.
  * @noreturn
  */
 stock void PrintToAdmins(const char[] format, any ...)
