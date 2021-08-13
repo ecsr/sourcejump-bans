@@ -4,5 +4,5 @@ The plugin will check if connecting clients are banned from the [SourceJump](htt
 
 ## Requirements
 * SourceJump API key
-* [REST in Pawn](https://forums.alliedmods.net/showthread.php?t=298024)
-* [Shavit's bhop timer](https://github.com/shavitush/bhoptimer) (Optional)
+* [REST in Pawn (version 1.3 or later)](https://forums.alliedmods.net/showthread.php?t=298024)
+* [Shavit's bhop timer](https://github.com/shavitush/bhoptimer)
